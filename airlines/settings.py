@@ -25,8 +25,8 @@ SECRET_KEY = "django-insecure-7r@8+hf^q48gbqj5rme0p+1@zl1q!xo!rws99+k_6-pg5^8ten
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.7']
 
 # Application definition
 
@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_yasg",
+    "kami_api"
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
