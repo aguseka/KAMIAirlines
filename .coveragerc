@@ -1,6 +1,0 @@
-[run]
-omit = 
-    */manage.py
-    */__init__.py
-    */migrations/*
-    */kami_api/tests.py
