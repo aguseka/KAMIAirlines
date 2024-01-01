@@ -1,0 +1,115 @@
+# Wrong
+{"planes": [
+  {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      },
+ {
+        "plane_name": "A 320-1",
+        "id_by_user": 5,
+        "passenger_capacity": 300,
+      
+      },]}
+
+
+#correct
+{
+  "planes": [
+    {
+      "plane_name": "A 320-1",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-2",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-3",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-4",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-5",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-6",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-7",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-8",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-9",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    },
+    {
+      "plane_name": "A 320-10",
+      "id_by_user": 5,
+      "passenger_capacity": 300
+    }
+  ]
+}
