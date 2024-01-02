@@ -1,7 +1,7 @@
 
 
 from django.test import TestCase
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from .models import Plane
 from math import log
@@ -79,6 +79,7 @@ class CreatePlanesAPITest(APITestCase):
 
         response = self.client.post('/api/create_planes/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("Bulk creation is limited to 10 planes at a time.", str(response.data))
         self.assertEqual(Plane.objects.count(), 0)
 
 class GetAllPlanesAPITest(APITestCase):
@@ -94,4 +95,55 @@ class GetAllPlanesAPITest(APITestCase):
         self.assertEqual(response.data[0]['plane_name'], 'Test Plane 1')
         self.assertEqual(response.data[1]['plane_name'], 'Test Plane 2')
 
-    # Add more test cases as needed
+class GetSinglePlaneAPITest(APITestCase):
+    def setUp(self):
+        # Create a sample plane for testing
+        self.sample_plane = Plane.objects.create(
+            plane_name='Sample Plane',
+            id_by_user=1,
+            passenger_capacity=200,
+        )
+        self.client = APIClient()
+
+    def test_get_single_plane(self):
+        response = self.client.get(f'/api/single_plane/{self.sample_plane.pk}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['plane_name'], 'Sample Plane')
+
+    def test_non_exist_plane(self):
+        response = self.client.get('/api/single_plane/100/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+# Testing the modified serializer
+class PlaneSerializerTest(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_passenger_capacity_validation(self):
+        # Attempt to create a plane with invalid passenger capacity (more than 500)
+        invalid_data = {
+            "plane_name": "Test Plane",
+            "id_by_user": 1,
+            "passenger_capacity": 600,  # Exceeding the limit
+        }
+
+        response = self.client.post('/api/create_planes/', data=invalid_data, format='json')
+
+        # Assert that the request returns a 400 Bad Request status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Assert that the response contains the validation error message
+        self.assertIn("Passenger capacity cannot exceed 500.", str(response.data))
+
+    def test_passenger_capacity_validation_successful(self):
+        # Attempt to create a plane with valid passenger capacity
+        valid_data = {
+            "plane_name": "Test Plane",
+            "id_by_user": 1,
+            "passenger_capacity": 400,  # Within the limit
+        }
+
+        response = self.client.post('/api/create_planes/', data=valid_data, format='json')
+
+        # Assert that the request is successful (201 Created)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)

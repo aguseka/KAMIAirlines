@@ -1,4 +1,5 @@
 #from xml.dom.minidom import parseString
+from pickle import FALSE
 from django.db import models
 from math import log
 from config.configs import TANK, PASS_CONSUMPTION, FUEL_CONS
@@ -7,9 +8,9 @@ from config.configs import TANK, PASS_CONSUMPTION, FUEL_CONS
 # Check this model against intruction
 
 class Plane(models.Model):
-    plane_name = models.CharField(max_length=100)
-    id_by_user = models.IntegerField()
-    passenger_capacity = models.IntegerField(choices = [(100, '100'), (200, '200'), (300, '300'), (400, '400'),(500, '500'),], null=True, blank=True)
+    plane_name = models.CharField(max_length=100,null=False, blank=False)
+    id_by_user = models.IntegerField(null=False, blank=False)
+    passenger_capacity = models.IntegerField(null=False, blank=False)
     cons_per_mnt = models.FloatField(editable=False, null=False)
     tot_cons_per_minute = models.FloatField(editable=False,null=False)
     max_flight_time = models.FloatField(editable=False,null=False)

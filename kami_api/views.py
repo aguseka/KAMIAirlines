@@ -39,3 +39,15 @@ def all_planes(request) -> Response :
         planes = Plane.objects.all()
         serializer = PlaneSerializer(planes, many=True)
         return Response(serializer.data)
+    
+@api_view(['GET'])
+def single_plane(request,id) -> Response:
+    if request.method == 'GET':    
+        try:
+            plane = Plane.objects.get(pk=id)
+        except Plane.DoesNotExist:
+            return Response({'error': 'Plane not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = PlaneSerializer(plane)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
