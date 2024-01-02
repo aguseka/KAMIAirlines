@@ -68,7 +68,6 @@ Follow the instructions. Please memorize the superuser name and the password, th
 python manage.py runserver 
 ```
 
-
 ### Test The API
 When it works and no error, you can open the links below.
 ``` bash
