@@ -8,7 +8,7 @@ class PlaneSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('cons_per_mnt', 'tot_cons_per_minute', 'max_flight_time', 'fuel_cap', 'max_pass_consumption',)
     
-    def validate_passenger_capacity(self, value):
+    def validate_passenger_capacity(self, value: int ) -> int :
         if value > 500:
             raise serializers.ValidationError("Passenger capacity cannot exceed 500.")
         return value
@@ -18,5 +18,5 @@ class PlaneSerializer(serializers.ModelSerializer):
         request_body=Plane,
         responses={200: 'self'}
     )
-    def create(self, validated_data):
+    def create(self, validated_data: dict):
         return super(PlaneSerializer, self).create(validated_data)

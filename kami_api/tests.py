@@ -1,6 +1,6 @@
 
 
-from django.test import TestCase
+
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from .models import Plane
@@ -9,6 +9,9 @@ from config.configs import TANK, PASS_CONSUMPTION, FUEL_CONS
 
 
 class CreatePlanesAPITest(APITestCase):
+    """
+    Testing the process of creating one plane, and testing all the calculations, ensure everything is correctly calculated.
+    """
     def test_create_single_plane(self) -> None:
         data = {
             "planes": [
@@ -83,6 +86,9 @@ class CreatePlanesAPITest(APITestCase):
         self.assertEqual(Plane.objects.count(), 0)
 
 class GetAllPlanesAPITest(APITestCase):
+    """
+    Test to get all available plane
+    """
     def setUp(self)-> None :
         # Create some planes for testing
         Plane.objects.create(plane_name='Test Plane 1', id_by_user=1, passenger_capacity=200)
@@ -96,7 +102,10 @@ class GetAllPlanesAPITest(APITestCase):
         self.assertEqual(response.data[1]['plane_name'], 'Test Plane 2')
 
 class GetSinglePlaneAPITest(APITestCase):
-    def setUp(self):
+    """
+    Test to call a single plane based on plane id in the database
+    """
+    def setUp(self) -> None :
         # Create a sample plane for testing
         self.sample_plane = Plane.objects.create(
             plane_name='Sample Plane',
@@ -105,21 +114,28 @@ class GetSinglePlaneAPITest(APITestCase):
         )
         self.client = APIClient()
 
-    def test_get_single_plane(self):
+    def test_get_single_plane(self) -> None :
         response = self.client.get(f'/api/single_plane/{self.sample_plane.pk}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Assert that the request returns a valid plane name
         self.assertEqual(response.data['plane_name'], 'Sample Plane')
 
-    def test_non_exist_plane(self):
+    def test_non_exist_plane(self) -> None :
         response = self.client.get('/api/single_plane/100/')
+
+        # Assert that the request returns a 404 Not found status code
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 # Testing the modified serializer
 class PlaneSerializerTest(APITestCase):
-    def setUp(self):
+    """
+    Test on creating a single plane with maximum passenger capacity
+    """
+    def setUp(self) -> None :
         self.client = APIClient()
 
-    def test_passenger_capacity_validation(self):
+    def test_passenger_capacity_validation(self) -> None :
         # Attempt to create a plane with invalid passenger capacity (more than 500)
         invalid_data = {
             "plane_name": "Test Plane",
@@ -135,7 +151,7 @@ class PlaneSerializerTest(APITestCase):
         # Assert that the response contains the validation error message
         self.assertIn("Passenger capacity cannot exceed 500.", str(response.data))
 
-    def test_passenger_capacity_validation_successful(self):
+    def test_passenger_capacity_validation_successful(self) -> None :
         # Attempt to create a plane with valid passenger capacity
         valid_data = {
             "plane_name": "Test Plane",
