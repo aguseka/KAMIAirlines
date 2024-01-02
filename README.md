@@ -71,7 +71,7 @@ python manage.py runserver
 ### Test The API
 When it works and no error, you can open the links below.
 ``` bash
-localhost:8000/swagger or
+localhost:8000/swagger
 ```
 or 
 ``` bash
