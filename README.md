@@ -3,11 +3,11 @@ Virtual airlines of KAMI
 
 
 ## Installation Tutorial
-
+This tutorial should be applicable on MacOS, Linux or Windows.
 
 ### Requirements:
 
-Before proceed please ensure you already have the requirements below installed on your system:
+Before proceeding please ensure you already have the requirements below installed on your system:
 - Python 3+
 - Git
 
@@ -35,16 +35,30 @@ source env/bin/activate
 pip install -r requirements.txt
 
 
+### Change settings.py
+
+Go to /airlines/ folder and find settings.py
+Change this line:
+
+SECRET_KEY="yoursecretkeyishere"
+DEBUG=True
+
 ###  Run Django
 
+Upon completion of donwload, please run this commands:
 
 python manage.py makemigrations
 python manage.py migrate
 python manage.py create superuser
-python manage.py runserver
+
+Follow the instructions. Please memorize the superuser name and the password, then run this command.
+
+python manage.py runserver 
+
 
 
 ### Test The API
+When it works and no error, you can open the links below.
 
 localhost:8000/swagger or
 localhost:8000/api
