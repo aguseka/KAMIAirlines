@@ -17,13 +17,14 @@ Before proceeding please ensure you already have the requirements below installe
 Open your teminal, then copy the line below and paste it on your terminal
 git clone https://github.com/aguseka/KAMIAirlines.git
 
+
 go into that folder by typing this command.
+
 cd KAMIAirlines
 
 ### Create a Python Virtual Environment
 
 python3 -m venv env
-
 
 ### Activate the Virtual Environment
 
@@ -40,8 +41,8 @@ pip install -r requirements.txt
 Go to /airlines/ folder and find settings.py
 Change this line:
 
-SECRET_KEY="yoursecretkeyishere"
-DEBUG=True
+-SECRET_KEY="yoursecretkeyishere"
+-DEBUG=True
 
 ###  Run Django
 
