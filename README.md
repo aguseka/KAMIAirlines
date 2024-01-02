@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ### Change settings.py
 
 Go to /airlines/ folder and find settings.py You will find instructions as follows.
-Change this line:
+Follow the instructions:
 ``` bash
 # SECURITY WARNING: keep the secret key used in production secret!
 # Uncomment the line below and replace "your_secret_key_is_here" with your key
