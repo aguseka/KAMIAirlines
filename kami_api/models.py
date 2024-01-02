@@ -1,4 +1,4 @@
-#from xml.dom.minidom import parseString
+
 from django.db import models
 from math import log
 from config.configs import TANK, PASS_CONSUMPTION, FUEL_CONS
