@@ -32,8 +32,9 @@ python3 -m venv env
 ```
 ### Activate the Virtual Environment
 
+``` bash
 source env/bin/activate
-
+```
 
 ### Install the requirements
 
@@ -59,14 +60,17 @@ python manage.py create superuser
 ```
 
 Follow the instructions. Please memorize the superuser name and the password, then run this command.
-
+``` bash
 python manage.py runserver 
-
+```
 
 
 ### Test The API
 When it works and no error, you can open the links below.
-
-- localhost:8000/swagger or
-- localhost:8000/api
-
+``` bash
+localhost:8000/swagger or
+```
+or 
+``` bash
+localhost:8000/api
+```
