@@ -14,18 +14,22 @@ Before proceeding please ensure you already have the requirements below installe
 
 ### Clone the code
 
-Open your teminal, then copy the line below and paste it on your terminal
-git clone https://github.com/aguseka/KAMIAirlines.git
+Open your terminal, then copy the line below and paste it on your terminal
 
+```bash
+git clone https://github.com/aguseka/KAMIAirlines.git
+```
 
 go into that folder by typing this command.
 
+``` bash
 cd KAMIAirlines
+```
 
 ### Create a Python Virtual Environment
-
+``` bash
 python3 -m venv env
-
+```
 ### Activate the Virtual Environment
 
 source env/bin/activate
@@ -35,24 +39,24 @@ source env/bin/activate
 
 ``` bash
 pip install -r requirements.txt
-
 ```
 ### Change settings.py
 
 Go to /airlines/ folder and find settings.py
 Change this line:
-
+``` bash
 SECRET_KEY="yoursecretkeyishere"
 
 DEBUG=True
-
+```
 ###  Run Django
 
 Upon completion of donwload, please run this commands:
-
-- python manage.py makemigrations
-- python manage.py migrate
-- python manage.py create superuser
+``` bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py create superuser
+```
 
 Follow the instructions. Please memorize the superuser name and the password, then run this command.
 
