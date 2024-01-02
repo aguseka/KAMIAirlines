@@ -3,7 +3,7 @@ Virtual airlines of KAMI
 
 
 ## Installation Tutorial
-This tutorial should be applicable on MacOS, Linux or Windows.
+This tutorial should be applicable on MacOS, Linux, or Windows.
 
 ### Requirements:
 
@@ -43,16 +43,20 @@ pip install -r requirements.txt
 ```
 ### Change settings.py
 
-Go to /airlines/ folder and find settings.py
+Go to /airlines/ folder and find settings.py You will find instructions as follows.
 Change this line:
 ``` bash
-SECRET_KEY="yoursecretkeyishere"
+# SECURITY WARNING: keep the secret key used in production secret!
+# Uncomment the line below and replace "your_secret_key_is_here" with your key
+#SECRET_KEY ="your_secret_key_is_here"
 
-DEBUG=True
+# SECURITY WARNING: don't run with debug turned on in production!
+# Uncomment this line below
+# DEBUG = True
 ```
 ###  Run Django
 
-Upon completion of donwload, please run this commands:
+Upon completion of the download, please run these commands:
 ``` bash
 python manage.py makemigrations
 python manage.py migrate
