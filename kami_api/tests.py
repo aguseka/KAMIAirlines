@@ -6,6 +6,10 @@ from rest_framework import status
 from .models import Plane
 from math import log
 from config.configs import TANK, PASS_CONSUMPTION, FUEL_CONS
+from django.test import TestCase
+from django.contrib.admin.sites import AdminSite
+from kami_api.admin import PlaneAdmin
+
 
 
 class CreatePlanesAPITest(APITestCase):
@@ -163,3 +167,37 @@ class PlaneSerializerTest(APITestCase):
 
         # Assert that the request is successful (201 Created)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class PlaneAdminTest(TestCase):
+    def setUp(self) -> None:
+        self.admin_site = AdminSite()
+        self.plane_admin = PlaneAdmin(Plane, self.admin_site)
+
+    def test_list_display(self) -> None:
+        # Create a sample Plane instance with specific input data
+        plane = Plane.objects.create(
+            plane_name="Test Plane",
+            id_by_user= 5,
+            passenger_capacity=300,
+        )
+
+        # Get the list of displayed fields
+        list_display = self.plane_admin.get_list_display(None)
+
+        # Check if the fields in list_display are present in the actual PlaneAdmin list_display
+        self.assertEqual(list_display, PlaneAdmin.list_display)
+
+        # Check the calculated fields
+        self.assertAlmostEqual(plane.fuel_cap, 5 * TANK)
+        self.assertAlmostEqual(plane.cons_per_mnt, log(5) * FUEL_CONS)
+        self.assertAlmostEqual(plane.max_pass_consumption, 300 * PASS_CONSUMPTION)
+        self.assertAlmostEqual(plane.tot_cons_per_minute, plane.cons_per_mnt + plane.max_pass_consumption)
+        self.assertAlmostEqual(plane.max_flight_time, plane.fuel_cap / plane.tot_cons_per_minute)
+
+
+    def test_list_display_links(self) -> None:
+        # Get the list of displayed links
+        list_display_links = self.plane_admin.get_list_display_links(None, None)
+
+        # Check if the links in list_display_links are present in the actual PlaneAdmin list_display_links
+        self.assertEqual(list_display_links, PlaneAdmin.list_display_links)
