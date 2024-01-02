@@ -33,24 +33,26 @@ source env/bin/activate
 
 ### Install the requirements
 
+``` bash
 pip install -r requirements.txt
 
-
+```
 ### Change settings.py
 
 Go to /airlines/ folder and find settings.py
 Change this line:
 
--SECRET_KEY="yoursecretkeyishere"
--DEBUG=True
+SECRET_KEY="yoursecretkeyishere"
+
+DEBUG=True
 
 ###  Run Django
 
 Upon completion of donwload, please run this commands:
 
-python manage.py makemigrations
-python manage.py migrate
-python manage.py create superuser
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py create superuser
 
 Follow the instructions. Please memorize the superuser name and the password, then run this command.
 
@@ -61,6 +63,6 @@ python manage.py runserver
 ### Test The API
 When it works and no error, you can open the links below.
 
-localhost:8000/swagger or
-localhost:8000/api
+- localhost:8000/swagger or
+- localhost:8000/api
 
