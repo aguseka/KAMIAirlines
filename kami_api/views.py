@@ -13,6 +13,9 @@ from . models import Plane
 )
 @api_view(['POST'])
 def create_planes(request)-> Response :
+    """
+    This view is to create a single plane or multiple planes which is maximum 10 planes per batch
+    """
     if request.method == 'POST':
         data = request.data
 
@@ -35,6 +38,9 @@ def create_planes(request)-> Response :
 
 @api_view(['GET'])
 def all_planes(request) -> Response :
+    """ 
+    Get all available planes
+    """
     if request.method == 'GET':
         planes = Plane.objects.all()
         serializer = PlaneSerializer(planes, many=True)
@@ -42,6 +48,9 @@ def all_planes(request) -> Response :
     
 @api_view(['GET'])
 def single_plane(request,id) -> Response:
+    """
+    calling a single plane based on its id in database
+    """
     if request.method == 'GET':    
         try:
             plane = Plane.objects.get(pk=id)

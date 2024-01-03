@@ -30,8 +30,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Uncomment this line below
 # DEBUG = True
 
-ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.7']
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.6']
 
 # Application definition
 
