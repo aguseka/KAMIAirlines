@@ -42,7 +42,7 @@ class CreatePlanesAPITest(APITestCase):
         self.assertAlmostEqual(created_plane.max_flight_time, created_plane.fuel_cap / created_plane.tot_cons_per_minute)
 
     def test_bad_request(self) -> None:
-        """ Creating a request with bad format or wrong key"""
+        """ Creating a plane with bad format or wrong key"""
         data = {
             "pla": [ # they key here is not right
                 {
