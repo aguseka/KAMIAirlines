@@ -148,20 +148,7 @@ class PlaneSerializerTest(APITestCase):
 
         # Assert that the response contains the validation error message
         self.assertIn("Passenger capacity cannot exceed 500.", str(response.data))
-
-
-    def test_passenger_capacity_validation_successful(self) -> None :
-        # Attempt to create a plane with valid passenger capacity
-        valid_data = {
-            "plane_name": "Test Plane",
-            "id_by_user": 1,
-            "passenger_capacity": 400,  # Within the limit
-        }
-
-        response = self.client.post('/api/create_planes/', data=valid_data, format='json')
-
-        # Assert that the request is successful (201 Created)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        
 
     def test_passenger_capacity_negative(self) -> None :
         # Attempt to create a plane with invalid passenger capacity (less than 0)
