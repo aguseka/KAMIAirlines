@@ -92,36 +92,27 @@ class CreatePlanesAPITest(APITestCase):
         self.assertIn("Bulk creation is limited to 10 planes at a time.", str(response.data))
         self.assertEqual(Plane.objects.count(), 0)
     
-class GetAllPlanesAPITest(APITestCase):
+
+class GetPlaneAPITest(APITestCase):
     """
-    Test to get all available plane
+    Test to call a single plane based on plane id in the database or call all planes
     """
-    def setUp(self)-> None :
-        # Create some planes for testing
+    def test_get_all_planes(self) -> None:
         Plane.objects.create(plane_name='Test Plane 1', id_by_user=1, passenger_capacity=200)
         Plane.objects.create(plane_name='Test Plane 2', id_by_user=2, passenger_capacity=300)
-
-    def test_get_all_planes(self) -> None:
         response = self.client.get('/api/all_planes/')
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
         self.assertEqual(response.data[0]['plane_name'], 'Test Plane 1')
         self.assertEqual(response.data[1]['plane_name'], 'Test Plane 2')
 
-class GetSinglePlaneAPITest(APITestCase):
-    """
-    Test to call a single plane based on plane id in the database
-    """
-    def setUp(self) -> None :
-        # Create a sample plane for testing
+    def test_get_single_plane(self) -> None :
         self.sample_plane = Plane.objects.create(
             plane_name='Sample Plane',
             id_by_user=1,
             passenger_capacity=200,
         )
-        self.client = APIClient()
-
-    def test_get_single_plane(self) -> None :
         response = self.client.get(f'/api/single_plane/{self.sample_plane.pk}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
