@@ -11,9 +11,15 @@ class PlaneSerializer(serializers.ModelSerializer):
     def validate_passenger_capacity(self, value: int ) -> int :
         if value > 500:
             raise serializers.ValidationError("Passenger capacity cannot exceed 500.")
+        elif value < 0:
+            raise serializers.ValidationError("Passenger capacity must be a positive integer")    
         return value
     
-    
+    def validate_id_by_user(self, value: int ) -> int :
+        if value < 0:
+            raise serializers.ValidationError("id_by_user must be a positive integer")
+        
+        return value
     @swagger_auto_schema(
         request_body=Plane,
         responses={200: 'self'}

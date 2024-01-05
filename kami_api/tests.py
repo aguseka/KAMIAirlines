@@ -42,8 +42,9 @@ class CreatePlanesAPITest(APITestCase):
         self.assertAlmostEqual(created_plane.max_flight_time, created_plane.fuel_cap / created_plane.tot_cons_per_minute)
 
     def test_bad_request(self) -> None:
+        """ Creating a request with bad format or wrong key"""
         data = {
-            "plan": [
+            "pla": [ # they key here is not right
                 {
                     "plane_name": "A 320-300",
                     "id_by_user": 5,
@@ -58,6 +59,7 @@ class CreatePlanesAPITest(APITestCase):
 
 
     def test_create_multiple_planes(self) -> None:
+        """This is creating 10 planes"""
         data = {
             "planes": [
                 {
@@ -74,6 +76,7 @@ class CreatePlanesAPITest(APITestCase):
         
 
     def test_create_too_many_planes(self) -> None :
+        """This is creating 12 planes"""
         data = {
             "planes": [
                 {
@@ -88,7 +91,7 @@ class CreatePlanesAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("Bulk creation is limited to 10 planes at a time.", str(response.data))
         self.assertEqual(Plane.objects.count(), 0)
-
+    
 class GetAllPlanesAPITest(APITestCase):
     """
     Test to get all available plane
@@ -155,6 +158,7 @@ class PlaneSerializerTest(APITestCase):
         # Assert that the response contains the validation error message
         self.assertIn("Passenger capacity cannot exceed 500.", str(response.data))
 
+
     def test_passenger_capacity_validation_successful(self) -> None :
         # Attempt to create a plane with valid passenger capacity
         valid_data = {
@@ -168,6 +172,39 @@ class PlaneSerializerTest(APITestCase):
         # Assert that the request is successful (201 Created)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_passenger_capacity_negative(self) -> None :
+        # Attempt to create a plane with invalid passenger capacity (less than 0)
+        negative_pass = {
+            "plane_name": "Test Plane",
+            "id_by_user": 1,
+            "passenger_capacity": -200,  # Below 0
+        }
+
+        response = self.client.post('/api/create_planes/', data=negative_pass, format='json')
+
+        # Assert that the request returns a 400 Bad Request status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Assert that the response contains the validation error message
+        self.assertIn("Passenger capacity must be a positive integer", str(response.data))
+
+    def test_id_by_user_negative(self) -> None :
+        # Attempt to create a plane with invalid id_by_user (negative)
+        invalid_data = {
+            "plane_name": "Test Plane",
+            "id_by_user": -5, # negative value
+            "passenger_capacity": 300,  
+        }
+
+        response = self.client.post('/api/create_planes/', data=invalid_data, format='json')
+
+        # Assert that the request returns a 400 Bad Request status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Assert that the response contains the validation error message
+        self.assertIn("id_by_user must be a positive integer", str(response.data))
+
+    
 class PlaneAdminTest(TestCase):
     def setUp(self) -> None:
         self.admin_site = AdminSite()
